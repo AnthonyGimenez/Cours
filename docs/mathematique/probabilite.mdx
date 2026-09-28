@@ -1,5 +1,359 @@
 ---
 id: Probabilité
+description: Branche mathématique qui sert à prévoir un évènement dont la certitude est inexacte.
 ---
+:::warning
+Ce cours est basé sur celui de l'univeristé de Sherbrooke, il sera complété par la suite par celui de Polytech Tours qui est plus fournie en contenu.
+:::
 
-**Ce cours assume que vous connaissez l'algèbre linéaire jusqu'au espace préhibertien et aussi le concept de dénombrement.**
+**Ce cours assume que vous connaissez le concept de dénombrement et les tribus en algèbre.**
+
+## Définition
+
+**<u>Probabilité</u>** : Chance, possibilité qu’un évènement se produise
+
+Source : **[L'Académie Française](https://www.dictionnaire-academie.fr/article/A9P4371)**
+
+**<u>Définition mathématique</u>** : Soit $(\Omega, \mathcal{A}, \mathbb{P})$ est un **espace probabilisé** (ou espace de probabilité) tel que :
+- $\Omega$ est un ensemble appelé l'**univers**
+- $\mathcal{A}$ est une tribu sur $\Omega$. Tous les éléments de $\mathcal{A}$ sont appelés **évènements**.
+- $\mathbb{P}$ est une mesure appelé **fonction de probabilité** (ou mesure de probabilité) tel que $\mathbb{P} : \mathcal{A} \rightarrow [0,1]$
+
+Les propriétés de $\mathbb{P}$ sont les suivantes :
+- $\mathbb{P}(\Omega)=1$
+- Soient $A_1,A_2,...A_n \in \mathcal{A}$ tel que $A_i \cap A_j = \emptyset$ pour tous $i \ne j$ (disjoint deux à deux), alors :
+$$$
+\mathbb{P}(\bigcup_{i=1}^{n} A_i) = \sum_{i=1}^{n} \mathbb{P}(A_i)
+$$$
+
+On dira que $A_1, A_2,...,A_n$ (disjoint deux à deux) est un **système exhaustif** (ou système complet) si et seulement si :
+$$$
+\bigcup_{i=1}^{n}A_i = \Omega
+$$$
+
+:::info[Exemple N°1]
+Prenons un lancé de dés à **3 faces** non pipé (non truqué).
+
+$\Omega = \{1, 2, 3\}$ Car il y a 3 faces possibles sur ce dés, de ce fait, l'univers est chacune des faces possibles. <br/>
+$\mathcal{A} = \mathcal{P}(\Omega) = \{\emptyset, \{1\}, \{2\}, \{3\}, \{1, 2\},
+\{1, 3\}, \{2, 3\}, \Omega \}$ <br/>
+Car $\mathcal{A}$ contient tous les évènements d'un lancé de dés. Il prend aussi en compte des évènements multiples comme tombé sur 2 et 3 en même temps ($\{2, 3\}$). Dans le cas d'un lancès de dés, il s'agît d'évènements incompatibles (car impossible d'avoir la face 2 et 3 en même temps), donc la probabilité $\mathbb{P}(\{2,3\}) = 0$
+:::
+
+:::info[Exemple N°2]
+Prenons cette fois un lancé d'une pièce non pipé.
+
+$\Omega = \{"Pile", "Face"\}$ Car seulement Pile et Face sont faisable dans le lancé de pièce. <br/>
+$\mathcal{A} = \mathcal{P}(\Omega) = \{\emptyset, \{"Pile"\}, \{"Face"\}, \Omega\}$
+:::
+
+:::info[Exemple N°3]
+Prenons maintenant un cas de faire un test de dépistage pour savoir si une personne est malade.
+
+Nous allons appelé l'évènement $M : "\text{Le fait d'être malade}"$. <br/>
+Et l'évènement $P : "\text{Le test est positif}"$.
+
+Dans ce cas, l'univers est :
+
+$\Omega = \{M, \overline M\} \times \{P, \overline P\}$ Où $\overline M$ veut dire "Ne pas être malade" et $\overline P$ veut dire "Le test est négatif". <br/>
+$\mathcal{A} = \mathcal{P}(\Omega)$ Je ne vais pas écrire $\mathcal{A}$, sachez simplement qu'il y a 16 éléments dedans.
+:::
+
+## Interprétation des probabilités
+
+Typiquement, il existe deux voies d’interprétations :
+
+- Approche fréquentiste : utilisation des probabilités pour représenter la fréquence de
+réalisation d’une expérience soumise au hasard (aléatoire).
+- Approche bayésienne : utilisation des probabilités pour modéliser le degré de certitude
+subjectif face à la réalisation d’un événement.
+
+## Les 4 types d'évènements principaux.
+
+Soit un évènement $A$.
+- Si $A$ est simplement un simple élément de l'univers (exemple: `Avoir la face 2 dans un lancès de dés`) alors on appele $A$ un **évènement élémentaire**.
+- Si la probabilité de $A$ est $\mathbb{P}(A) = 1$ alors on appele ça un **évènement certain**.
+- Si la probabilité de $A$ est comprise entre 0 et 1, c'es-à-dire $0 < \mathbb{P}(A) < 1$ alors on appele ça un **évènement possible** (ou probable).
+- Si la probabilité de $A$ est $\mathbb{P}(A) = 0$ alors on appele ça un **évènement impossible**.
+
+## Théorème des probabilités totales
+
+Soit $(\Omega, \mathcal{A}, \mathbb{P}$) un espace probabilisé. Si $(A_i)_{i\in I}$ est un système exhaustif d'évènements, alors, pour tout évènement $B$,
+
+$$$
+\mathbb{P}(B) = \sum_{i \in I} \mathbb{P}(B \cap A_i)
+$$$
+
+:::danger[Demonstration]
+Soit $(\Omega, \mathcal{A}, \mathbb{P})$ un espace probabilisé. Et $B \in \mathcal{A}$ un évènement.
+$$$
+\begin{matrix}
+& \mathbb{P}(B) &=& \mathbb{P}(B \cap \Omega)
+&& \text{Comme } \mathcal{A} \text{ est une tribu sur } \Omega \text{, alors } B \subset \Omega
+\\
+\Leftrightarrow &
+\mathbb{P}(B) &=& \mathbb{P}(B \cap \bigcup_{i \in I} A_i)
+&& \text{Où } (A_i)_{i \in I} \text{ est un système exhaustif}
+\\
+\Leftrightarrow &
+\mathbb{P}(B) &=& \mathbb{P}(\bigcup_{i \in I} (B \cap A_i))
+&& \text{Distributivité de l'intersection par rapport à l'union}
+\\
+\Leftrightarrow &
+\mathbb{P}(B) &=& \sum_{i \in I} \mathbb{P}(B \cap A_i)
+&& \text{Car } \forall i \ne j, (B \cap A_i) \cap (B \cap A_j) = \emptyset \text{ puisque } A_i \cap A_j = \emptyset
+\\
+\\
+& && && \Box
+\end{matrix}
+$$$
+:::
+
+Ce théorème nous est utile avec les probabilités conditionnelles pour calculer la probabilité d'un évènement $B$.
+
+## Probabilité conditionnelle
+
+### Définition
+
+Soit $(\Omega, \mathcal{A}, \mathbb{P})$ un espace probabilisé.
+
+Soit $A, B$ deux évènements de $\mathcal{A}$.
+
+Supposons que l'évènement $A$ a déjà été réalisé. Alors la probabilité conditionnelle est de connaître la probabilité de l'évènement $B$ après l'évènement $A$.
+
+On définit la probabilité conditionnelle de **la probabilité de $B$ sachant $A$** par :
+
+$$$
+\mathbb{P}(B | A) = \frac{\mathbb{P}(B \cap A)}{\mathbb{P}(A)}
+$$$
+
+On écrit parfois $\mathbb{P}(B | A)$ par $\mathbb{P}_A(B)$.
+
+### Proposition
+
+Soit $(\Omega, \mathcal{A}, \mathbb{P})$ un espace probabilisé.
+
+Soit $B$ un évènement de $\mathcal{A}$. Et $(A_i)_{i \in I}$ un système exhaustif.
+
+Nous avons la proposition suivante sur le théorème des probabilités totales :
+
+$$$
+\mathbb{P}(B) = \sum_{i \in I} \mathbb{P}(B | A_i)\mathbb{P}(A_i)
+$$$
+
+:::danger[Preuve]
+Soit $(\Omega, \mathcal{A}, \mathbb{P})$ un espace probabilisé.
+
+Soit $B$ un évènement de $\mathcal{A}$. Et $(A_i)_{i \in I}$ un système exhaustif.
+
+$$$
+\mathbb{P}(B|A) = \frac{\mathbb{P}(B \cap A)}{\mathbb{P}(A)} \Leftrightarrow \mathbb{P}(B|A)\mathbb{P}(A) = \mathbb{P}(B \cap A)
+$$$
+
+Maintenant, poursuivons notre preuve.
+
+$$$
+\begin{matrix}
+&
+\mathbb{P}(B) &=& \sum_{i \in I}(B \cap A_i)
+&& \text{D'après le théorème des probabilités totales.}
+\\
+\Leftrightarrow &
+\mathbb{P}(B) &=& \sum_{i \in I} \mathbb{P}(B | A_i)\mathbb{P}(A_i)
+&& \text{D'après la formule de la probabilité condiontionnelle.}
+\\
+\\
+& && && \Box
+\end{matrix}
+$$$
+:::
+
+### Règle de la chaîne
+
+Soit $(\Omega, \mathcal{A}, \mathbb{P})$ un espace probabilisé.
+
+Soient $A_1, A_2, ..., A_n$ des évènements dans $\mathcal{A}$.
+
+La règle de la chaîne est :
+
+$$$
+\mathbb{P}(\bigcap_{i = 1}^{n}A_i) = \mathbb{P}(A_1 \cap A_2 \cap ... \cap A_n) =
+\mathbb{P}(A_1)\mathbb{P}(A_2 | A_1)\mathbb{P}(A_3 | A_1, A_2)...\mathbb{P}(A_n| A_1, A_2, ..., A_{n-1})
+$$$
+
+:::danger[Demonstration]
+Soit $(\Omega, \mathcal{A}, \mathbb{P})$ un espace probabilisé.
+
+Soient $A_1, A_2, ..., A_n$ des évènements dans $\mathcal{A}$.
+
+On peut démontrer l'égalité en remaniant les termes comme dans la dérivation en chaîne (pour ceux qui ont fait de l'analyse).
+
+$$$
+\mathbb{P}(A_1)\mathbb{P}(A_2 | A_1)\mathbb{P}(A_3 | A_1, A_2)...\mathbb{P}(A_n| A_1, A_2, ..., A_{n-1}) = \mathbb{P}(A_1)\frac{\mathbb{P}(A_1 \cap A_2)}{\mathbb{P}(A_1)}\frac{\mathbb{P}(A_1 \cap A_2 \cap A_3)}{\mathbb{P}(A_1 \cap A_2)}...\frac{\mathbb{P}(A_1 \cap A_2 \cap ... \cap A_n)}{\mathbb{P}(A_1 \cap A_2 \cap ... \cap A_{n-1})}
+$$$
+Tous les termes s'annulent, faisant qu'il ne reste que $\mathbb{P}(A_1 \cap A_2 \cap ... \cap A_n)$. <br/>
+Mais faisons la démonstration dans un cadre plus scolaire.
+
+Nous avons **$n$ évènements**, de ce fait, nous allons procédez par récurrence.
+
+**Initialisation**
+
+Soient $A_1$ et $A_2$ deux évènements.
+$$$
+\mathbb{P}(A_1 \cap A_2) = \mathbb{P}(A_2 | A_1)\mathbb{P}(A_1) \text{ D'après la définition de probabilité condiontionnelle}
+$$$
+
+Donc l'initialisation est **vraie**.
+
+**Hérédité**
+
+Supposons que la formule est vraie pour **n évènements**. Montrons maintenant qu'elle est vraie aussi pour **n + 1 évènements**.
+
+$$$
+\begin{matrix} &
+\mathbb{P}(A_1 \cap A_2 \cap ... \cap A_n) &=&
+\mathbb{P}(A_1)\mathbb{P}(A_2 | A_1)\mathbb{P}(A_3 | A_1, A_2)...\mathbb{P}(A_n| A_1, A_2, ..., A_{n-1})
+\\
+\Leftrightarrow &
+\mathbb{P}(A_1 \cap A_2 \cap ... \cap A_n)\mathbb{P}(A_{n+1} | A_1, A_2, ..., A_n) &=&
+\mathbb{P}(A_1)\mathbb{P}(A_2 | A_1)\mathbb{P}(A_3 | A_1, A_2)...\mathbb{P}(A_n| A_1, A_2, ..., A_{n-1})\mathbb{P}(A_{n+1} | A_1, A_2, ..., A_n)
+\\ 
+\Leftrightarrow &
+\mathbb{P}(A_1 \cap A_2 \cap ... \cap A_n)\frac{\mathbb{P}(A_, A_2, .., A_{n+1})}{\mathbb{P}(A_1 \cap A_2 \cap ... \cap A_n)} &=&
+\mathbb{P}(A_1)\mathbb{P}(A_2 | A_1)\mathbb{P}(A_3 | A_1, A_2)...\mathbb{P}(A_{n+1}| A_1, A_2, ..., A_n)
+\\
+\Leftrightarrow &
+\mathbb{P}(A_1 \cap A_2 \cap ... \cap A_{n+1}) &=&
+\mathbb{P}(A_1)\mathbb{P}(A_2 | A_1)\mathbb{P}(A_3 | A_1, A_2)...\mathbb{P}(A_{n+1}| A_1, A_2, ..., A_n)
+\end{matrix}
+$$$
+
+Donc l'hérédité est **vraie**.
+
+**Conclusion**
+
+Nous avons vu que la formule a une initialisation et une hérédité **vraies**, de ce fait la formule est **vraie** pour tout $n$.
+
+$\Box$
+:::
+
+### Théorème de Bayes
+
+Soit $(\Omega, \mathcal{A}, \mathbb{P})$ un espace probabilisé.
+
+Soient $A_1, A_2$ des évènements dans $\mathcal{A}$.
+
+Alors,
+
+$$$
+\mathbb{P}(A_2|A_1) = \frac{\mathbb{P}(A_1|A_2)\mathbb{P}(A_2)}{\mathbb{P}(A_1)}
+$$$
+
+:::danger[Démonstration]
+Remplacer simplement le $\mathbb{P}(A_1 \cap A_2)$ par son équivalent, soit $\mathbb{P}(A_1|A_2)\mathbb{P}(A_2)$ dans la formule de la probabilité conditionnelle.
+
+$\Box$
+:::
+
+Ce théorème est utilisé dans le cas où nous n'avons pas la valeur de $\mathbb{P}(A_1 \cap A_2)$, mais que nous avons les autres valeurs.
+
+## Indépendance
+
+### Définition
+
+Soit $(\Omega, \mathcal{A}, \mathbb{P})$ un espace probabilisé.
+
+Soient $A_1, A_2$ des évènements dans $\mathcal{A}$.
+
+Nous considérons que $A_1$ est **indépendant** à $A_2$ ($A_1 \perp\!\!\!\perp A_2$) si la réalisation de $A_1$ n'impacte pas la probabilité de $A_2$. C'est-à-dire :
+
+$$$
+\mathbb{P}(A_2 | A_1) = \mathbb{P}(A_2)
+$$$
+
+Sachant que $\mathbb{P}(A_2 | A_1) = \frac{\mathbb{P}(A_1 \cap A_2)}{\mathbb{P}(A_1)}$, alors on a $\mathbb{P}(A_2) = \frac{\mathbb{P}(A_1 \cap A_2)}{\mathbb{P}(A_1)}$. <br/>
+De ce fait, beaucoup de personne considère la définition de l'indépendance comme la formule suivante :
+
+$$$
+\mathbb{P}(A_1 \cap A_2) = \mathbb{P}(A_1)\mathbb{P}(A_2)
+$$$
+
+### Indépendance conditionnelle
+
+Soit $(\Omega, \mathcal{A}, \mathbb{P})$ un espace probabilisé.
+
+Soient $A_1, A_2, A_3$ des évènements dans $\mathcal{A}$.
+
+Parfois, les évènements ne sont pas indépendants tant qu'un évènement ne sait pas réalisé. On parle alors d'**indépendance conditionnelle**.
+
+L'indépendance conditionnelle est définie par :
+
+$$$
+\mathbb{P}(A_1 \cap A_2 | A_3) = \mathbb{P}(A_1 | A_3)\mathbb{P}(A_2 | A_3)
+$$$
+
+Qu'on écrit $A_1 \perp \!\!\! \perp A_2 | A_3$.
+
+:::tip
+Quand on parle de probabilité indépendante, on écrit souvent :
+- $P \models A_1 \perp \!\!\!\perp A_2$
+- $P \models (A_1 \perp\!\!\!\perp A_2 | A_3)$
+:::
+
+## Variable aléatoire
+
+### Définition
+
+Soit $(\Omega, \mathcal{A}, \mathbb{P})$ un espace probabilisé. Et $(E, \mathcal{E})$ un espace mesurable où $E$ est un ensemble et $\mathcal{E}$ une tribu sur $E$.
+
+On apppelle **variable aléatoire** la fonction $X$ tel que $X : \mathcal{A} \rightarrow \mathcal{E}$.
+
+*Cette définition est très généraliste, et peu embrouillé certain, allons voir de plus près un certain type de variable aléatoire.*
+
+### Variable aléatoire discrète
+
+#### Définition
+
+Le terme **discrèt** est pour indiqué que les valeurs que peuvent prendre $X$ sont dans $\Z$ ($\Omega \rightarrow \Z$). <br/>
+Que $X$ est défini comme $X : \mathcal{A} \rightarrow \mathcal{P}(\Z)$
+
+Elle permet d'étudier les **lois de probabilité discrètes**.
+
+:::info[Exemple N°1]
+Soit un lancer de dés non pipé à 6 faces.
+
+Soit une variable aléatoire $X$ défini comme, $X : "\text{La face qu'on obtient au lancé de dès}"$.
+
+On va noté $X = 1$ l'évènement de tombé sur la face 1, et $X = 6$ l'évènement de tombé sur la face 6, de même pour les autres faces.
+
+$\mathbb{P}(X=4) = \frac{1}{6}$ C'est à dire que la probabilité de tombé sur la face 4 est $\frac{1}{6}$
+:::
+
+:::info[Exemple N°2]
+Une variable aléatoire nous sert aussi à **encoder** des évènements.
+
+Prenons l'exemple du jeu du `Simon`.
+Pour ceux qui ne connaissent pas ce jeu, il s'agit de quatre boutons coloré (rouge, vert, bleu et jaune). Où les boutons vont s'allumer dans un ordre précis que le joueur devra réappuyer sans se tromper dans l'ordre.
+
+Nous pouvons donc définir :
+- $Rouge \rightarrow 1$
+- $Vert \rightarrow 2$
+- $Bleu \rightarrow 3$
+- $Jaune \rightarrow 4$
+
+Donc quand on fait $X = 3$, nous indiquons que nous voulons l'évènement $Bleu$.
+:::
+
+:::warning
+Pour les puristes des maths, vous aurez remarquez un détail troublant.
+
+Comme dit dans la définition, $X$ est une fonction, donc on ne peux pas écrire $X = 1$.
+
+De plus, $X$ va de $\mathcal{A}$ vers $\mathcal{P}(\Z)$, sauf qu'on lui donne un élément de $\Z$ pour aller dans un évènement de $\mathcal{A}$.
+
+Il ne s'agit pas d'une erreur, mais d'un abus d'écriture, pour simplifier la lisibilité.
+
+$X = 1$ devrait s'écrire $X^{-1}(\{1\})$ si on devait écrire la variable aléatoire correctement.
+:::
+
+### Variable aléatoire continue
